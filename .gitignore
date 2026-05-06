@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Thumbs.db:encdata
+desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# Editor directories
+.vscode/
+.idea/

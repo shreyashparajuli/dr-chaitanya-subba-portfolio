@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A tribute to Dr. Chaitanya Subba (1946–2022) — Nepali scholar, linguist, and indigenous rights advocate from Thechambu, Taplejung, Nepal.">
+  <title>Dr. Chaitanya Subba — A Living Legacy (1946–2022)</title>
+  <style>
+    /* ============================================================
+       RESET & CUSTOM PROPERTIES
+    ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg:            #faf6f0;
+      --surface:       #fff8f0;
+      --surface-alt:   #f0e6d4;
+      --border:        #c4a47a;
+      --border-light:  #dfc9a8;
+
+      --text:          #241408;
+      --text-muted:    #4a2e14;
+      --text-light:    #6b4422;
+
+      --green:         #1e3d30;
+      --green-mid:     #2d5a44;
+      --green-soft:    #3d7057;
+      --green-pale:    #deeee5;
+
+      --gold:          #7a5a0a;
+      --gold-bright:   #b8861a;
+      --gold-pale:     #f5e9c8;
+
+      --accent:        #4a2e14;
+      --accent-dark:   #2a1608;
+
+      --font-serif: Georgia, 'Times New Roman', Times, serif;
+      --font-sans:  system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+
+      --radius-sm: 4px;
+      --radius:    8px;
+      --radius-lg: 14px;
+
+      --shadow-sm: 0 1px 6px rgba(36,20,8,0.09);
+      --shadow:    0 3px 14px rgba(36,20,8,0.12);
+      --shadow-lg: 0 6px 28px rgba(36,20,8,0.18);
+
+      --nav-h: 64px;
+    }
+
+    /* ============================================================
+       BASE
+    ============================================================ */
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.72;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* ============================================================
+       SKIP LINK
+    ============================================================ */
+    .skip-link {
+      position: absolute;
+      top: -120%;
+      left: 1rem;
+      z-index: 10000;
+      background: var(--green);
+      color: #fff;
+      padding: 0.6rem 1.4rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 0 0 var(--radius) var(--radius);
+      text-decoration: none;
+      transition: top 0.18s ease;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* ============================================================
+       FOCUS STYLE (WCAG 2.1 AA)
+    ============================================================ */
+    :focus-visible {
+      outline: 3px solid var(--gold-bright);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      background: rgba(250,246,240,0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .nav-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 1.75rem;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav-brand {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--accent-dark);
+      text-decoration: none;
+      white-space: nowrap;
+      letter-spacing: -0.01em;
+    }
+    .nav-brand:hover { color: var(--green); }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 0.4rem 0.8rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.025em;
+      border-radius: var(--radius-sm);
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-links a:hover,
+    .nav-links a[aria-current="location"] {
+      background: var(--green-pale);
+      color: var(--green);
+    }
+
+    /* Hamburger */
+    .nav-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.4rem 0.5rem;
+      cursor: pointer;
+      color: var(--accent);
+      transition: background 0.15s;
+    }
+    .nav-toggle:hover { background: var(--surface-alt); }
+
+    /* Mobile nav drawer */
+    @media (max-width: 720px) {
+      .nav-toggle { display: flex; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: var(--nav-h);
+        left: 0; right: 0;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        padding: 0.75rem 1.25rem 1.25rem;
+        gap: 0.1rem;
+        box-shadow: var(--shadow);
+      }
+      .nav-links.is-open { display: flex; }
+      .nav-links a { font-size: 0.95rem; padding: 0.55rem 0.8rem; }
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      position: relative;
+      background: linear-gradient(168deg, #122a20 0%, #1a3829 35%, #243f31 65%, #2e5040 100%);
+      color: #fff;
+      overflow: hidden;
+      padding: 7rem 2rem 6rem;
+      text-align: center;
+    }
+
+    /* Subtle texture overlay */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23ffffff' fill-opacity='0.025'%3E%3Cpath d='M0 0h40v40H0V0zm40 40h40v40H40V40z'/%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* Mountain silhouette at base */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 60px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60' preserveAspectRatio='none'%3E%3Cpath d='M0,60 L0,40 L80,20 L160,35 L280,8 L380,28 L500,0 L600,22 L720,10 L840,30 L960,5 L1080,25 L1200,15 L1320,35 L1440,20 L1440,60 Z' fill='%23faf6f0'/%3E%3C/svg%3E") center bottom / 100% 100% no-repeat;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .hero-monogram {
+      width: 108px;
+      height: 108px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.09);
+      border: 2px solid rgba(255,255,255,0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      font-family: var(--font-serif);
+      font-size: 2.6rem;
+      color: rgba(255,255,255,0.88);
+      letter-spacing: -0.03em;
+      box-shadow: 0 0 0 8px rgba(255,255,255,0.05), inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.1rem, 5.5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-years {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-style: italic;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: rgba(255,255,255,0.78);
+      font-weight: 400;
+    }
+
+    .hero-rule {
+      width: 56px;
+      height: 2px;
+      background: rgba(184,134,26,0.75);
+      margin: 2rem auto;
+      border: none;
+    }
+
+    .hero-tagline {
+      font-family: var(--font-serif);
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      font-style: italic;
+      color: rgba(255,255,255,0.72);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+       PAGE WRAPPER
+    ============================================================ */
+    .page-wrap {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 1.75rem;
+    }
+
+    /* ============================================================
+       SECTIONS
+    ============================================================ */
+    .section {
+      padding: 5.5rem 0;
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--border-light);
+    }
+
+    .section-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-eyebrow-text {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--green-soft);
+    }
+
+    .section-eyebrow-line {
+      flex: 1;
+      max-width: 40px;
+      height: 1px;
+      background: var(--green-soft);
+      opacity: 0.5;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      color: var(--accent-dark);
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      letter-spacing: -0.015em;
+    }
+
+    .section-lead {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin-bottom: 3rem;
+    }
+
+    /* ============================================================
+       BIOGRAPHY
+    ============================================================ */
+    .bio-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .bio-body p {
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+      max-width: 680px;
+    }
+    .bio-body p:last-child { margin-bottom: 0; }
+    .bio-body strong { color: var(--accent-dark); font-weight: 600; }
+
+    /* Sidebar cards */
+    .bio-aside { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 1.4rem 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .info-card-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green-soft);
+      margin-bottom: 0.9rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    /* Timeline inside card */
+    .timeline {
+      position: relative;
+      padding-left: 1.4rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 5px; top: 6px; bottom: 6px;
+      width: 2px;
+      background: var(--border);
+    }
+    .timeline-item {
+      position: relative;
+      padding-bottom: 1.1rem;
+    }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.1rem;
+      top: 6px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--green-soft);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 2px var(--green-soft);
+    }
+    .tl-year {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--green-soft);
+      margin-bottom: 0.1rem;
+      letter-spacing: 0.03em;
+    }
+    .tl-text {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Credentials list */
+    .cred-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .cred-list li {
+      display: flex;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .cred-list li::before {
+      content: '—';
+      color: var(--gold-bright);
+      flex-shrink: 0;
+    }
+
+    /* ============================================================
+       PUBLICATIONS
+    ============================================================ */
+    .pub-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .pub-item {
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-left: 4px solid var(--green-soft);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.6rem 1.8rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .pub-item:hover {
+      transform: translateX(5px);
+      box-shadow: var(--shadow);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pub-item:hover { transform: none; }
+    }
+
+    .pub-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--accent-dark);
+      margin-bottom: 0.5rem;
+      font-style: normal;
+    }
+    cite { font-style: normal; }
+
+    .pub-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.7rem;
+    }
+
+    .pub-badge {
+      display: inline-flex;
+      align-items: center;
+      background: var(--green-pale);
+      color: var(--green);
+      padding: 0.2rem 0.65rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .pub-tag {
+      display: inline-flex;
+      align-items: center;
+      background: var(--gold-pale);
+      color: var(--gold);
+      padding: 0.2rem 0.65rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .pub-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ============================================================
+       LEGACY
+    ============================================================ */
+    .blockquote-pull {
+      background: var(--surface-alt);
+      border-left: 4px solid var(--gold-bright);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 2rem 2.5rem;
+      margin: 0 0 3rem;
+    }
+    .blockquote-pull p {
+      font-family: var(--font-serif);
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+      font-style: italic;
+      color: var(--accent-dark);
+      line-height: 1.7;
+    }
+
+    .legacy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .legacy-card {
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.75rem;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .legacy-card:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-3px);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .legacy-card:hover { transform: none; }
+    }
+
+    .legacy-icon {
+      font-size: 2rem;
+      line-height: 1;
+      display: block;
+      margin-bottom: 0.9rem;
+    }
+
+    .legacy-card-title {
+      font-family: var(--font-serif);
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--accent-dark);
+      margin-bottom: 0.6rem;
+    }
+
+    .legacy-card-body {
+      font-size: 0.93rem;
+      color: var(--text-muted);
+      line-height: 1.68;
+    }
+    .legacy-card-body strong { color: var(--accent); }
+
+    /* ============================================================
+       FIELDS OF WORK
+    ============================================================ */
+    .fields-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.1rem;
+    }
+
+    .field-card {
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 1.5rem 2rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+    .field-card:hover {
+      background: var(--green-pale);
+      border-color: var(--green-soft);
+      box-shadow: var(--shadow);
+      transform: translateY(-5px);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .field-card:hover { transform: none; }
+    }
+
+    .field-icon {
+      font-size: 2.4rem;
+      line-height: 1;
+      display: block;
+      margin-bottom: 0.85rem;
+    }
+
+    .field-name {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent-dark);
+      line-height: 1.35;
+    }
+
+    .field-desc {
+      font-size: 0.83rem;
+      color: var(--text-light);
+      margin-top: 0.4rem;
+      line-height: 1.5;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .site-footer {
+      background: var(--green);
+      color: rgba(255,255,255,0.88);
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .footer-ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+    .footer-ornament-line {
+      width: 48px;
+      height: 1px;
+      background: rgba(255,255,255,0.25);
+    }
+    .footer-ornament-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(184,134,26,0.7);
+    }
+
+    .footer-memorial {
+      font-family: var(--font-serif);
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-style: italic;
+      color: #fff;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-tagline {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-style: italic;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 1.75rem;
+    }
+
+    .footer-meta {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.05em;
+    }
+
+    /* ============================================================
+       UTILITIES
+    ============================================================ */
+    .visually-hidden {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ============================================================
+       NAV RIGHT CLUSTER
+    ============================================================ */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ============================================================
+       HERO PORTRAIT
+    ============================================================ */
+    .hero-portrait {
+      margin: 0 auto 2rem;
+      width: 180px;
+      display: block;
+      text-align: center;
+    }
+    .hero-portrait-img,
+    .hero-portrait-fallback {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 3px solid var(--gold-bright);
+      box-shadow: 0 0 0 6px rgba(184,134,26,0.18), 0 8px 32px rgba(0,0,0,0.38);
+      display: block;
+    }
+    .hero-portrait-img {
+      object-fit: cover;
+    }
+    .hero-portrait-fallback {
+      background: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: #f5e9c8;
+      letter-spacing: -0.03em;
+    }
+    .hero-portrait-fallback[hidden] { display: none; }
+    .hero-portrait-caption {
+      display: block;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.52);
+      font-style: italic;
+      margin-top: 0.65rem;
+      text-align: center;
+      letter-spacing: 0.01em;
+    }
+
+    /* ============================================================
+       PUBLICATION SOURCE LINKS
+    ============================================================ */
+    .pub-source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin-top: 1rem;
+      padding: 0.38rem 1rem 0.38rem 0.85rem;
+      background: var(--gold-pale);
+      color: var(--gold);
+      border: 1px solid var(--border-light);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.15s;
+      letter-spacing: 0.02em;
+    }
+    .pub-source-link:hover {
+      background: var(--gold-bright);
+      color: #fff;
+      border-color: var(--gold-bright);
+      box-shadow: var(--shadow-sm);
+    }
+    .pub-source-link svg { flex-shrink: 0; }
+
+    /* ============================================================
+       LANGUAGE TOGGLE BUTTON
+    ============================================================ */
+    .lang-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.32rem 0.85rem;
+      background: var(--gold-pale);
+      color: var(--gold);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: var(--font-sans);
+      flex-shrink: 0;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .lang-btn:hover {
+      background: var(--gold-bright);
+      color: #fff;
+      border-color: var(--gold-bright);
+    }
+    /* Drawer item: hidden on desktop, shown on mobile */
+    .lang-toggle-li { display: none; }
+    @media (max-width: 720px) {
+      .lang-btn-nav { display: none; }
+      .lang-toggle-li {
+        display: block;
+        padding: 0.5rem 0.8rem 0.65rem;
+        border-bottom: 1px solid var(--border-light);
+        margin-bottom: 0.3rem;
+      }
+      .lang-toggle-li .lang-btn {
+        width: 100%;
+        justify-content: center;
+        font-size: 0.92rem;
+        padding: 0.45rem 1rem;
+      }
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 900px) {
+      .bio-layout {
+        grid-template-columns: 1fr;
+      }
+      .legacy-grid {
+        grid-template-columns: 1fr;
+      }
+      .fields-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero { padding: 5rem 1.25rem 4.5rem; }
+      .section { padding: 4rem 0; }
+      .page-wrap { padding: 0 1.1rem; }
+      .fields-grid { grid-template-columns: 1fr; }
+      .blockquote-pull { padding: 1.5rem; }
+      .pub-item { padding: 1.25rem 1.35rem; }
+    }
+
+    /* ============================================================
+       PRINT
+    ============================================================ */
+    @media print {
+      .skip-link, .site-nav { display: none; }
+      .hero { background: none; color: var(--text); padding: 2rem 0; }
+      .hero h1, .hero-years, .hero-subtitle, .hero-tagline { color: var(--text); }
+      .hero::before, .hero::after { display: none; }
+      .section { break-inside: avoid; }
+    }
+
+    /* ============================================================
+       REDUCED MOTION
+    ============================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       SKIP LINK (keyboard / screen reader first)
+  ══════════════════════════════════════════ -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- ══════════════════════════════════════════
+       NAVIGATION
+  ══════════════════════════════════════════ -->
+  <nav class="site-nav" aria-label="Main site navigation">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-brand" aria-label="Dr. Chaitanya Subba — return to top">
+        Dr. Chaitanya Subba
+      </a>
+
+      <div class="nav-right">
+        <ul class="nav-links" id="nav-links" role="list">
+          <li class="lang-toggle-li">
+            <button class="lang-btn" id="lang-btn-drawer" aria-label="Switch to Nepali language">
+              नेपाली
+            </button>
+          </li>
+          <li><a href="#biography" data-i18n="nav-biography">Biography</a></li>
+          <li><a href="#publications" data-i18n="nav-publications">Publications</a></li>
+          <li><a href="#legacy" data-i18n="nav-legacy">Legacy</a></li>
+          <li><a href="#fields" data-i18n="nav-fields">Fields of Work</a></li>
+        </ul>
+
+        <button class="lang-btn lang-btn-nav" id="lang-btn-nav" aria-label="Switch to Nepali language">
+          नेपाली
+        </button>
+
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-expanded="false"
+          aria-controls="nav-links"
+          aria-label="Toggle navigation menu"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <line x1="3" y1="6"  x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════ -->
+  <header id="hero" role="banner">
+    <div class="hero">
+      <div class="hero-inner">
+        <figure class="hero-portrait">
+          <img
+            id="hero-photo"
+            src="Baba.jpg"
+            alt="Portrait of Dr. Chaitanya Subba, scholar and indigenous rights advocate"
+            class="hero-portrait-img"
+            style="display:none"
+            onload="this.style.display='block';document.getElementById('hero-portrait-fallback').hidden=true;"
+            onerror="this.alt='';"
+          >
+          <div id="hero-portrait-fallback" class="hero-portrait-fallback" aria-hidden="true">CS</div>
+          <figcaption class="hero-portrait-caption">Dr. Chaitanya Subba — Thechambu, Taplejung</figcaption>
+        </figure>
+
+        <h1>Dr. Chaitanya Subba</h1>
+
+        <p class="hero-years">
+          <time datetime="1946">1946</time>
+          <span aria-hidden="true"> – </span>
+          <time datetime="2022">2022</time>
+        </p>
+
+        <p class="hero-subtitle"
+           data-i18n="hero-subtitle"
+           data-i18n-aria="hero-subtitle-aria"
+           aria-label="Scholar, Linguist, Indigenous Rights Advocate, Development Planner">
+          Scholar &middot; Linguist &middot; Indigenous Rights Advocate &middot; Development Planner
+        </p>
+
+        <hr class="hero-rule" aria-hidden="true">
+
+        <p class="hero-tagline">
+          "A voice for the voiceless, a keeper of ancient wisdom,
+          and a tireless builder of a more just Nepal."
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════
+       MAIN CONTENT
+  ══════════════════════════════════════════ -->
+  <main id="main-content">
+    <div class="page-wrap">
+
+      <!-- ─────────────────────────────────────
+           BIOGRAPHY
+      ───────────────────────────────────── -->
+      <section id="biography" class="section" aria-labelledby="bio-heading">
+        <div class="section-eyebrow" aria-hidden="true">
+          <span class="section-eyebrow-text" data-i18n="bio-eyebrow">01 — Who He Was</span>
+          <span class="section-eyebrow-line"></span>
+        </div>
+        <h2 class="section-title" id="bio-heading" data-i18n="bio-heading">Biography</h2>
+        <p class="section-lead">
+          A man of deep learning and deeper compassion, Dr. Chaitanya Subba gave his life to understanding,
+          preserving, and advocating for the people and traditions of his homeland in Nepal's eastern hills.
+        </p>
+
+        <div class="bio-layout">
+          <!-- Main text -->
+          <div class="bio-body">
+            <p>
+              Dr. Chaitanya Subba was born in <strong>1946</strong> in <strong>Thechambu, Taplejung</strong> —
+              a village nestled in the eastern hills of Nepal, a region of striking natural beauty and rich
+              Limbu heritage. From an early age, the rhythms of his community and the weight of its history shaped
+              the scholar he would become.
+            </p>
+            <p>
+              His early education took place at <strong>Bhanu Secondary School</strong>, where a love for knowledge
+              took root. He earned his <strong>School Leaving Certificate (SLC) from Dharan in 1963</strong>, marking
+              the beginning of a distinguished academic journey that would eventually take him to Nepal's foremost
+              institution of higher learning.
+            </p>
+            <p>
+              An active civic participant from a young age, he served as a <strong>Panchayat member of Taplejung
+              in 1967</strong>, demonstrating early on his commitment to public service and to the betterment of
+              his community. He carried this commitment throughout his life — from policy chambers to rehabilitation
+              centres to university classrooms.
+            </p>
+            <p>
+              Dr. Subba pursued a <strong>Master's degree in Political Science</strong> from
+              <strong>Tribhuvan University in 1976</strong>, later crowning his academic career with a
+              <strong>doctorate (PhD)</strong>. His scholarly pursuits were never merely academic — they were
+              always in service of the communities he cared most about. He became one of Nepal's foremost authorities
+              on Limbu culture, the Mundhum oral tradition, and indigenous rights.
+            </p>
+            <p>
+              He passed away in <strong>2022</strong>, leaving behind a profound body of scholarship, a generation
+              of inspired students, and communities whose voices he spent a lifetime amplifying.
+            </p>
+          </div>
+
+          <!-- Sidebar -->
+          <aside class="bio-aside" aria-label="Key milestones and credentials">
+            <div class="info-card">
+              <div class="info-card-title" id="timeline-label">Life Timeline</div>
+              <nav aria-labelledby="timeline-label">
+                <ol class="timeline" aria-label="Chronological milestones">
+                  <li class="timeline-item">
+                    <div class="tl-year">1946</div>
+                    <div class="tl-text">Born in Thechambu, Taplejung, Nepal</div>
+                  </li>
+                  <li class="timeline-item">
+                    <div class="tl-year">1963</div>
+                    <div class="tl-text">SLC from Dharan</div>
+                  </li>
+                  <li class="timeline-item">
+                    <div class="tl-year">1967</div>
+                    <div class="tl-text">Panchayat Member, Taplejung</div>
+                  </li>
+                  <li class="timeline-item">
+                    <div class="tl-year">1976</div>
+                    <div class="tl-text">MA in Political Science, Tribhuvan University</div>
+                  </li>
+                  <li class="timeline-item">
+                    <div class="tl-year">1980s</div>
+                    <div class="tl-text">Executive Director, Drug Abuse Prevention Association</div>
+                  </li>
+                  <li class="timeline-item">
+                    <div class="tl-year">1995</div>
+                    <div class="tl-text">Published <em>The Culture and Religion of Limbus</em></div>
+                  </li>
+                  <li class="timeline-item">
+                    <div class="tl-year">2002</div>
+                    <div class="tl-text">Contributed to Nepal's 10th National Plan</div>
+                  </li>
+                  <li class="timeline-item">
+                    <div class="tl-year">2014</div>
+                    <div class="tl-text">Co-authored landmark socioeconomic research</div>
+                  </li>
+                  <li class="timeline-item">
+                    <div class="tl-year">2022</div>
+                    <div class="tl-text">Passed away — his legacy endures</div>
+                  </li>
+                </ol>
+              </nav>
+            </div>
+
+            <div class="info-card">
+              <div class="info-card-title">Academic Credentials</div>
+              <ul class="cred-list" aria-label="Academic qualifications">
+                <li>SLC, Dharan (1963)</li>
+                <li>MA, Political Science — Tribhuvan University (1976)</li>
+                <li>PhD — Tribhuvan University</li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <div class="info-card-title">Roots &amp; Region</div>
+              <ul class="cred-list" aria-label="Home region and community">
+                <li>Thechambu, Taplejung District</li>
+                <li>Province No. 1, Eastern Nepal</li>
+                <li>Limbu peoples' heartland</li>
+                <li>Scholar of Yakthung &amp; Mundhum tradition</li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ─────────────────────────────────────
+           PUBLICATIONS
+      ───────────────────────────────────── -->
+      <section id="publications" class="section" aria-labelledby="pub-heading">
+        <div class="section-eyebrow" aria-hidden="true">
+          <span class="section-eyebrow-text" data-i18n="pub-eyebrow">02 — Scholarship</span>
+          <span class="section-eyebrow-line"></span>
+        </div>
+        <h2 class="section-title" id="pub-heading" data-i18n="pub-heading">Research &amp; Publications</h2>
+        <p class="section-lead">
+          Dr. Subba's written works stand as lasting contributions to our understanding of Limbu culture,
+          indigenous epistemology, and social equity in Nepal.
+        </p>
+
+        <ol class="pub-list" aria-label="Selected publications and research by Dr. Chaitanya Subba">
+          <li class="pub-item">
+            <h3 class="pub-title"><cite>The Culture and Religion of Limbus</cite></h3>
+            <div class="pub-meta">
+              <span class="pub-badge" aria-label="Published 1995">1995</span>
+              <span class="pub-tag">Book</span>
+              <span class="pub-tag">Landmark Work</span>
+            </div>
+            <p class="pub-desc">
+              A landmark book and one of the most comprehensive accounts of Limbu culture, customs, rituals,
+              and religious practice ever written. Drawing on decades of fieldwork and deep personal knowledge
+              of the community, Dr. Subba gave the world an authoritative window into a rich and ancient tradition.
+              It remains an essential reference for scholars of Himalayan and indigenous studies.
+            </p>
+            <a
+              class="pub-source-link"
+              href="https://www.semanticscholar.org/paper/The-culture-and-religion-of-Limbus-Subba/45fa696418b493e61bc9aecf5c34b846053b3a1b"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View source for The Culture and Religion of Limbus (opens in new tab)"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true" focusable="false">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15,3 21,3 21,9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              View Source
+            </a>
+          </li>
+
+          <li class="pub-item">
+            <h3 class="pub-title"><cite>Philosophical Themes in Yakthung Mundhums</cite></h3>
+            <div class="pub-meta">
+              <span class="pub-tag">Research Paper</span>
+              <span class="pub-tag">Indigenous Philosophy</span>
+            </div>
+            <p class="pub-desc">
+              A scholarly paper that illuminates the profound intellectual traditions embedded within the
+              ancient oral scriptures of the Limbu people. Dr. Subba examined indigenous epistemology,
+              metaphysics, ethics, and social philosophy — demonstrating that Mundhum is not merely sacred
+              text but a complete philosophical system deserving serious academic engagement.
+            </p>
+            <a
+              class="pub-source-link"
+              href="http://yalambarhang.blogspot.com/2016/05/philosophical-themes-in-yakthung.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View source for Philosophical Themes in Yakthung Mundhums (opens in new tab)"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true" focusable="false">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15,3 21,3 21,9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              View Source
+            </a>
+          </li>
+
+          <li class="pub-item">
+            <h3 class="pub-title"><cite>A Study on Socio-Economic Status of Indigenous Peoples in Nepal</cite></h3>
+            <div class="pub-meta">
+              <span class="pub-badge" aria-label="Published 2014">2014</span>
+              <span class="pub-tag">Co-authored</span>
+              <span class="pub-tag">Tribhuvan University</span>
+            </div>
+            <p class="pub-desc">
+              Co-authored under the auspices of Tribhuvan University, this research documented the lived
+              social and economic realities of Nepal's indigenous communities with empirical rigor. It provided
+              essential grounding for policy advocacy and remains a key reference for development planners,
+              rights advocates, and academics.
+            </p>
+            <a
+              class="pub-source-link"
+              href="https://www.researchgate.net/publication/305377207_A_study_on_Socio-Economic_Status_of_Indigenous_Peoples_in_Nepal"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View source for A Study on Socio-Economic Status of Indigenous Peoples in Nepal (opens in new tab)"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true" focusable="false">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15,3 21,3 21,9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              View Source
+            </a>
+          </li>
+
+          <li class="pub-item">
+            <h3 class="pub-title"><cite>The Nepal Multidimensional Social Inclusion Index</cite></h3>
+            <div class="pub-meta">
+              <span class="pub-badge" aria-label="Published 2014">2014</span>
+              <span class="pub-tag">Co-authored</span>
+              <span class="pub-tag">Policy Research</span>
+            </div>
+            <p class="pub-desc">
+              A co-authored study offering a multidimensional framework for measuring social inclusion across
+              social, economic, political, cultural, and gender dimensions in Nepal. The index has been used
+              in policy formulation and national planning to better understand and address systemic inequalities
+              facing marginalized communities.
+            </p>
+            <a
+              class="pub-source-link"
+              href="https://www.abebooks.com/first-edition/Nepal-Multidimensional-Social-Inclusion-Index-Diversity/19721703040/bd"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View source for The Nepal Multidimensional Social Inclusion Index (opens in new tab)"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true" focusable="false">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15,3 21,3 21,9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              View Source
+            </a>
+          </li>
+
+          <li class="pub-item">
+            <h3 class="pub-title">Research on Drug Abuse and Rehabilitation</h3>
+            <div class="pub-meta">
+              <span class="pub-tag">Multiple Papers</span>
+              <span class="pub-tag">Public Health</span>
+            </div>
+            <p class="pub-desc">
+              Over the course of his career, Dr. Subba authored multiple research papers on drug abuse,
+              prevention, and rehabilitation — directly informing his practical work establishing and running
+              rehabilitation centres across Nepal. His scholarship in this area bridged the academic and the
+              deeply human, always centred on dignity and recovery.
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ─────────────────────────────────────
+           LEGACY
+      ───────────────────────────────────── -->
+      <section id="legacy" class="section" aria-labelledby="legacy-heading">
+        <div class="section-eyebrow" aria-hidden="true">
+          <span class="section-eyebrow-text" data-i18n="leg-eyebrow">03 — Lasting Impact</span>
+          <span class="section-eyebrow-line"></span>
+        </div>
+        <h2 class="section-title" id="legacy-heading" data-i18n="leg-heading">Legacy &amp; Contributions</h2>
+        <p class="section-lead">
+          Beyond his publications, Dr. Subba's life was one of sustained, principled action — in classrooms,
+          policy chambers, community spaces, and rehabilitation facilities across Nepal.
+        </p>
+
+        <blockquote class="blockquote-pull" aria-label="Tribute to Dr. Subba's legacy">
+          <p>
+            "He was not content to merely study his people — he fought for them, cared for them,
+            and ensured their stories, their philosophies, and their rights would never be forgotten.
+            That is a rare kind of scholar, and a rarer kind of human being."
+          </p>
+        </blockquote>
+
+        <div class="legacy-grid">
+          <article class="legacy-card" aria-labelledby="leg-mundhum">
+            <span class="legacy-icon" aria-hidden="true">📜</span>
+            <h3 class="legacy-card-title" id="leg-mundhum">Authority on Mundhum</h3>
+            <p class="legacy-card-body">
+              Dr. Subba was widely regarded as one of Nepal's foremost experts on <strong>Mundhum</strong> —
+              the ancient oral scripture, cosmology, and philosophical tradition of the Limbu people.
+              His scholarly work brought this living tradition into academic discourse while always
+              honouring its sacred and communal dimensions.
+            </p>
+          </article>
+
+          <article class="legacy-card" aria-labelledby="leg-policy">
+            <span class="legacy-icon" aria-hidden="true">🏛️</span>
+            <h3 class="legacy-card-title" id="leg-policy">National Policy Advocacy</h3>
+            <p class="legacy-card-body">
+              Dr. Subba played an influential role in shaping Nepal's <strong>10th National Plan
+              (2002–2007)</strong>, advocating for the formal inclusion of indigenous peoples' rights within
+              national development frameworks. His work helped translate grassroots realities into policy
+              language that could produce real change.
+            </p>
+          </article>
+
+          <article class="legacy-card" aria-labelledby="leg-rehab">
+            <span class="legacy-icon" aria-hidden="true">🤝</span>
+            <h3 class="legacy-card-title" id="leg-rehab">Drug Rehabilitation Pioneer</h3>
+            <p class="legacy-card-body">
+              As <strong>Executive Director of the Drug Abuse Prevention Association</strong> in the 1980s,
+              Dr. Subba established and operated drug rehabilitation centres across Nepal. He brought both
+              scholarly rigour and profound human compassion to this work, helping thousands of individuals
+              and families navigate recovery with dignity.
+            </p>
+          </article>
+
+          <article class="legacy-card" aria-labelledby="leg-culture">
+            <span class="legacy-icon" aria-hidden="true">🌿</span>
+            <h3 class="legacy-card-title" id="leg-culture">Cultural Preservation</h3>
+            <p class="legacy-card-body">
+              Long before "cultural preservation" became a recognized policy priority, Dr. Subba was
+              doing the work — documenting, analysing, and disseminating Limbu cultural heritage to ensure
+              it would survive into future generations. His books and papers now serve as irreplaceable
+              archival records of living tradition.
+            </p>
+          </article>
+
+          <article class="legacy-card" aria-labelledby="leg-rights">
+            <span class="legacy-icon" aria-hidden="true">✊</span>
+            <h3 class="legacy-card-title" id="leg-rights">Indigenous Rights Champion</h3>
+            <p class="legacy-card-body">
+              Throughout his career, Dr. Subba consistently used his scholarly voice and institutional
+              standing to advocate for the rights, recognition, and dignity of Nepal's indigenous
+              communities — at a time when such advocacy required both intellectual courage and personal
+              conviction.
+            </p>
+          </article>
+
+          <article class="legacy-card" aria-labelledby="leg-mentor">
+            <span class="legacy-icon" aria-hidden="true">🎓</span>
+            <h3 class="legacy-card-title" id="leg-mentor">Educator &amp; Mentor</h3>
+            <p class="legacy-card-body">
+              Through his long association with <strong>Tribhuvan University</strong> and academic
+              institutions, Dr. Subba mentored generations of students and researchers, instilling a
+              commitment to rigorous scholarship in service of social justice. His influence continues
+              through those he taught.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ─────────────────────────────────────
+           FIELDS OF WORK
+      ───────────────────────────────────── -->
+      <section id="fields" class="section" aria-labelledby="fields-heading">
+        <div class="section-eyebrow" aria-hidden="true">
+          <span class="section-eyebrow-text" data-i18n="fld-eyebrow">04 — Expertise</span>
+          <span class="section-eyebrow-line"></span>
+        </div>
+        <h2 class="section-title" id="fields-heading" data-i18n="fld-heading">Fields of Work</h2>
+        <p class="section-lead">
+          Dr. Subba's contributions spanned disciplines — a scholar who refused to be confined by any
+          single boundary, always following the needs of the communities he served.
+        </p>
+
+        <div class="fields-grid" role="list" aria-label="Areas of scholarly and professional expertise">
+          <div class="field-card" role="listitem">
+            <span class="field-icon" aria-hidden="true">🗣️</span>
+            <div class="field-name">Linguistics</div>
+            <div class="field-desc">Limbu language and oral traditions</div>
+          </div>
+
+          <div class="field-card" role="listitem">
+            <span class="field-icon" aria-hidden="true">👥</span>
+            <div class="field-name">Sociology &amp; Anthropology</div>
+            <div class="field-desc">Social structures and cultural practices</div>
+          </div>
+
+          <div class="field-card" role="listitem">
+            <span class="field-icon" aria-hidden="true">✊</span>
+            <div class="field-name">Indigenous Rights</div>
+            <div class="field-desc">Advocacy and policy for indigenous peoples</div>
+          </div>
+
+          <div class="field-card" role="listitem">
+            <span class="field-icon" aria-hidden="true">📊</span>
+            <div class="field-name">Development Planning</div>
+            <div class="field-desc">National plans and social inclusion indices</div>
+          </div>
+
+          <div class="field-card" role="listitem">
+            <span class="field-icon" aria-hidden="true">💊</span>
+            <div class="field-name">Drug Rehabilitation</div>
+            <div class="field-desc">Prevention, research, and recovery centres</div>
+          </div>
+
+          <div class="field-card" role="listitem">
+            <span class="field-icon" aria-hidden="true">🌿</span>
+            <div class="field-name">Cultural Preservation</div>
+            <div class="field-desc">Mundhum, ritual, and Limbu heritage</div>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /.page-wrap -->
+  </main>
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-ornament" aria-hidden="true">
+      <span class="footer-ornament-line"></span>
+      <span class="footer-ornament-dot"></span>
+      <span class="footer-ornament-line"></span>
+    </div>
+
+    <p class="footer-memorial" data-i18n-html="footer-memorial">
+      In loving memory of Dr. Chaitanya Subba
+      (<time datetime="1946">1946</time>–<time datetime="2022">2022</time>).
+    </p>
+    <p class="footer-tagline" data-i18n="footer-tagline">His words and work live on.</p>
+
+    <div class="footer-ornament" aria-hidden="true">
+      <span class="footer-ornament-line"></span>
+      <span class="footer-ornament-dot"></span>
+      <span class="footer-ornament-line"></span>
+    </div>
+
+    <p class="footer-meta">
+      Thechambu, Taplejung, Nepal &nbsp;&mdash;&nbsp;
+      Tribhuvan University &nbsp;&mdash;&nbsp;
+      Nepal
+    </p>
+  </footer>
+
+  <!-- ══════════════════════════════════════════
+       JAVASCRIPT
+  ══════════════════════════════════════════ -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* ── Mobile nav toggle ── */
+      var toggle   = document.getElementById('nav-toggle');
+      var navLinks = document.getElementById('nav-links');
+
+      function openNav() {
+        navLinks.classList.add('is-open');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+      function closeNav() {
+        navLinks.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+
+      toggle.addEventListener('click', function () {
+        navLinks.classList.contains('is-open') ? closeNav() : openNav();
+      });
+
+      /* Close when a nav link is clicked */
+      navLinks.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', closeNav);
+      });
+
+      /* Close on outside click */
+      document.addEventListener('click', function (e) {
+        if (navLinks.classList.contains('is-open') &&
+            !navLinks.contains(e.target) &&
+            !toggle.contains(e.target)) {
+          closeNav();
+        }
+      });
+
+      /* Close on Escape */
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && navLinks.classList.contains('is-open')) {
+          closeNav();
+          toggle.focus();
+        }
+      });
+
+      /* ── Active nav link via IntersectionObserver ── */
+      var sections   = document.querySelectorAll('section[id]');
+      var navAnchors = document.querySelectorAll('.nav-links a');
+
+      if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var id = entry.target.getAttribute('id');
+              navAnchors.forEach(function (a) {
+                if (a.getAttribute('href') === '#' + id) {
+                  a.setAttribute('aria-current', 'location');
+                } else {
+                  a.removeAttribute('aria-current');
+                }
+              });
+            }
+          });
+        }, { rootMargin: '-20% 0px -65% 0px', threshold: 0 });
+
+        sections.forEach(function (s) { obs.observe(s); });
+      }
+
+      /* ── Language Toggle ── */
+      var STRINGS = {
+        en: {
+          'hero-subtitle':     'Scholar · Linguist · Indigenous Rights Advocate · Development Planner',
+          'hero-subtitle-aria':'Scholar, Linguist, Indigenous Rights Advocate, Development Planner',
+          'nav-biography':     'Biography',
+          'nav-publications':  'Publications',
+          'nav-legacy':        'Legacy',
+          'nav-fields':        'Fields of Work',
+          'bio-eyebrow':       '01 — Who He Was',
+          'pub-eyebrow':       '02 — Scholarship',
+          'leg-eyebrow':       '03 — Lasting Impact',
+          'fld-eyebrow':       '04 — Expertise',
+          'bio-heading':       'Biography',
+          'pub-heading':       'Research & Publications',
+          'leg-heading':       'Legacy & Contributions',
+          'fld-heading':       'Fields of Work',
+          'footer-memorial':   'In loving memory of Dr. Chaitanya Subba (<time datetime="1946">1946</time>–<time datetime="2022">2022</time>).',
+          'footer-tagline':    'His words and work live on.',
+          'lang-btn-label':    'नेपाली',
+          'lang-btn-aria':     'Switch to Nepali language'
+        },
+        np: {
+          'hero-subtitle':     'विद्वान · भाषाविद् · आदिवासी अधिकार अभिवक्ता · विकास योजनाकार',
+          'hero-subtitle-aria':'विद्वान, भाषाविद्, आदिवासी अधिकार अभिवक्ता, विकास योजनाकार',
+          'nav-biography':     'जीवनी',
+          'nav-publications':  'अनुसन्धान',
+          'nav-legacy':        'विरासत',
+          'nav-fields':        'क्षेत्रहरू',
+          'bio-eyebrow':       '०१ — उहाँ को हुनुहुन्थ्यो',
+          'pub-eyebrow':       '०२ — विद्यावारिधि',
+          'leg-eyebrow':       '०३ — स्थायी प्रभाव',
+          'fld-eyebrow':       '०४ — विशेषज्ञता',
+          'bio-heading':       'जीवनी',
+          'pub-heading':       'अनुसन्धान र प्रकाशनहरू',
+          'leg-heading':       'विरासत र योगदानहरू',
+          'fld-heading':       'कार्यका क्षेत्रहरू',
+          'footer-memorial':   'डा. चैतन्य सुब्बा (<time datetime="1946">१९४६</time>–<time datetime="2022">२०२२</time>) को प्रिय स्मृतिमा।',
+          'footer-tagline':    'उनका शब्द र कार्य सदा जीवित रहनेछन्।',
+          'lang-btn-label':    'English',
+          'lang-btn-aria':     'Switch to English language'
+        }
+      };
+
+      var currentLang = localStorage.getItem('preferred-lang') || 'en';
+
+      function applyLang(lang) {
+        currentLang = lang;
+        document.documentElement.setAttribute('lang', lang === 'np' ? 'ne' : 'en');
+        localStorage.setItem('preferred-lang', lang);
+
+        /* Plain text translations */
+        document.querySelectorAll('[data-i18n]').forEach(function (el) {
+          var key = el.getAttribute('data-i18n');
+          if (STRINGS[lang][key] !== undefined) { el.textContent = STRINGS[lang][key]; }
+        });
+
+        /* HTML translations (preserves <time> etc.) */
+        document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+          var key = el.getAttribute('data-i18n-html');
+          if (STRINGS[lang][key] !== undefined) { el.innerHTML = STRINGS[lang][key]; }
+        });
+
+        /* aria-label translations */
+        document.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
+          var key = el.getAttribute('data-i18n-aria');
+          if (STRINGS[lang][key] !== undefined) { el.setAttribute('aria-label', STRINGS[lang][key]); }
+        });
+
+        /* Sync all lang buttons */
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.textContent = STRINGS[lang]['lang-btn-label'];
+          btn.setAttribute('aria-label', STRINGS[lang]['lang-btn-aria']);
+        });
+      }
+
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          applyLang(currentLang === 'en' ? 'np' : 'en');
+        });
+      });
+
+      /* Apply stored preference immediately (no flash) */
+      applyLang(currentLang);
+
+    })();
+  </script>
+
+</body>
+</html>
