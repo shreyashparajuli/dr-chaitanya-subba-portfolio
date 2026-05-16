@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pending approval — Family Gallery</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+  <header class="bar">
+    <div class="bar-inner">
+      <a class="bar-brand" href="../index.html">Dr. Chaitanya Subba</a>
+      <div class="bar-actions">
+        <button id="signout" class="btn btn-link" type="button">Sign out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="narrow">
+    <div class="card">
+      <h1>You're in the queue</h1>
+      <p id="greeting">Thanks for requesting access. We'll let you in once Shreyash approves your account — usually within a day.</p>
+      <p>You can close this tab and check back later, or refresh once you've heard from us.</p>
+
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="refresh" type="button">Refresh status</button>
+        <a class="btn btn-primary" href="../index.html">Back to memorial</a>
+      </div>
+    </div>
+  </main>
+
+  <script type="module">
+    import { getProfile, signOut } from './assets/auth.js';
+
+    (async () => {
+      const profile = await getProfile();
+      if (!profile)                                 location.replace('login.html');
+      else if (profile.status === 'approved' || profile.status === 'admin') location.replace('index.html');
+      else if (profile.status === 'disabled') {
+        await signOut();
+        location.replace('login.html');
+      } else if (profile.full_name) {
+        document.getElementById('greeting').textContent =
+          `Thanks, ${profile.full_name}. We'll let you in once Shreyash approves your account — usually within a day.`;
+      }
+    })();
+
+    document.getElementById('signout').addEventListener('click', async () => {
+      await signOut();
+      location.replace('login.html');
+    });
+    document.getElementById('refresh').addEventListener('click', () => location.reload());
+  </script>
+
+</body>
+</html>

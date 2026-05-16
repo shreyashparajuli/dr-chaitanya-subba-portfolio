@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Family Gallery — Dr. Chaitanya Subba</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+  <header class="bar">
+    <div class="bar-inner">
+      <a class="bar-brand" href="../index.html">Dr. Chaitanya Subba</a>
+      <div class="bar-actions">
+        <span class="bar-user" id="bar-user"></span>
+        <button class="btn btn-secondary" id="open-upload" type="button">Add to gallery</button>
+        <button class="btn btn-link" id="signout" type="button">Sign out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1 class="page-title">Family Gallery</h1>
+    <p class="page-lead">A shared collection of photos, scans, and documents — added by family members in memory of Dr. Chaitanya Subba.</p>
+
+    <div class="filter-row" id="filters" role="toolbar" aria-label="Filter by category">
+      <button class="chip" data-category="all" aria-pressed="true">All</button>
+      <!-- category chips injected by JS -->
+    </div>
+
+    <div id="status" class="msg" hidden></div>
+
+    <div id="grid" class="grid" aria-live="polite"></div>
+
+    <div id="empty" class="empty" hidden>
+      Nothing here yet — be the first to add something.
+    </div>
+  </main>
+
+  <!-- Upload modal -->
+  <div class="modal-backdrop" id="upload-modal" role="dialog" aria-labelledby="upload-title" aria-modal="true">
+    <div class="modal">
+      <h2 id="upload-title">Add to gallery</h2>
+      <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom: 1.25rem;">
+        Photos are resized and metadata (including GPS) is stripped before upload.
+      </p>
+
+      <form id="form-upload" novalidate>
+        <div class="field">
+          <label for="up-file">Photo or document</label>
+          <input id="up-file" type="file" accept="image/*,application/pdf" required>
+        </div>
+        <div class="field">
+          <label for="up-title">Title</label>
+          <input id="up-title" type="text" required maxlength="200">
+        </div>
+        <div class="field">
+          <label for="up-caption">Caption (optional)</label>
+          <textarea id="up-caption" maxlength="2000"></textarea>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="up-category">Category</label>
+            <select id="up-category" required>
+              <!-- injected -->
+            </select>
+          </div>
+          <div class="field">
+            <label for="up-taken">Taken on (optional)</label>
+            <input id="up-taken" type="date">
+          </div>
+        </div>
+
+        <div id="upload-msg" class="msg" hidden></div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="cancel-upload">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="submit-upload">Upload</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    import { requireApproved, signOut } from './assets/auth.js';
+    import {
+      listItems, uploadItem, softDelete, getSignedUrl, CATEGORIES,
+    } from './assets/gallery.js';
+
+    const grid       = document.getElementById('grid');
+    const emptyEl    = document.getElementById('empty');
+    const statusEl   = document.getElementById('status');
+    const filtersEl  = document.getElementById('filters');
+    const barUser    = document.getElementById('bar-user');
+
+    const modal       = document.getElementById('upload-modal');
+    const openUpload  = document.getElementById('open-upload');
+    const cancelUpload= document.getElementById('cancel-upload');
+    const formUpload  = document.getElementById('form-upload');
+    const submitBtn   = document.getElementById('submit-upload');
+    const uploadMsg   = document.getElementById('upload-msg');
+    const categorySelect = document.getElementById('up-category');
+
+    let profile     = null;
+    let currentCat  = 'all';
+
+    // Populate filter chips + category select from CATEGORIES
+    for (const cat of CATEGORIES) {
+      const chip = document.createElement('button');
+      chip.className = 'chip';
+      chip.dataset.category = cat.value;
+      chip.setAttribute('aria-pressed', 'false');
+      chip.textContent = cat.label;
+      filtersEl.appendChild(chip);
+
+      const opt = document.createElement('option');
+      opt.value = cat.value;
+      opt.textContent = cat.label;
+      categorySelect.appendChild(opt);
+    }
+
+    filtersEl.addEventListener('click', (e) => {
+      const btn = e.target.closest('.chip');
+      if (!btn) return;
+      currentCat = btn.dataset.category;
+      filtersEl.querySelectorAll('.chip').forEach(c =>
+        c.setAttribute('aria-pressed', String(c.dataset.category === currentCat))
+      );
+      renderGrid();
+    });
+
+    function showStatus(kind, text) {
+      statusEl.hidden = false;
+      statusEl.className = `msg msg-${kind}`;
+      statusEl.textContent = text;
+    }
+    function clearStatus() { statusEl.hidden = true; statusEl.textContent = ''; }
+
+    function showUploadMsg(kind, text) {
+      uploadMsg.hidden = false;
+      uploadMsg.className = `msg msg-${kind}`;
+      uploadMsg.textContent = text;
+    }
+    function clearUploadMsg() { uploadMsg.hidden = true; uploadMsg.textContent = ''; }
+
+    function categoryLabel(value) {
+      return CATEGORIES.find(c => c.value === value)?.label ?? value;
+    }
+
+    function fmtDate(iso) {
+      if (!iso) return '';
+      const d = new Date(iso);
+      return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    async function renderGrid() {
+      clearStatus();
+      grid.innerHTML = '';
+      emptyEl.hidden = true;
+      let items;
+      try {
+        items = await listItems({ category: currentCat });
+      } catch (err) {
+        showStatus('error', err.message || 'Could not load gallery.');
+        return;
+      }
+      if (items.length === 0) {
+        emptyEl.hidden = false;
+        return;
+      }
+      // Build tiles, resolve signed URLs in parallel
+      const tiles = await Promise.all(items.map(async (it) => {
+        const tile = document.createElement('article');
+        tile.className = 'tile';
+        tile.dataset.id = it.id;
+
+        const media = document.createElement('div');
+        media.className = 'tile-media' + (it.media_type === 'document' ? ' doc' : '');
+        if (it.media_type === 'photo') {
+          try {
+            const url = await getSignedUrl(it.storage_path);
+            const img = new Image();
+            img.alt = it.title;
+            img.loading = 'lazy';
+            img.src = url;
+            media.appendChild(img);
+          } catch {
+            media.textContent = '[image unavailable]';
+          }
+        } else {
+          const link = document.createElement('a');
+          link.textContent = 'Open PDF';
+          link.href = '#';
+          link.addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+              const url = await getSignedUrl(it.storage_path);
+              window.open(url, '_blank', 'noopener');
+            } catch (err) {
+              alert(err.message || 'Could not open document.');
+            }
+          });
+          media.appendChild(link);
+        }
+
+        const body = document.createElement('div');
+        body.className = 'tile-body';
+
+        const t = document.createElement('div');
+        t.className = 'tile-title';
+        t.textContent = it.title;
+        body.appendChild(t);
+
+        if (it.caption) {
+          const c = document.createElement('div');
+          c.className = 'tile-caption';
+          c.textContent = it.caption;
+          body.appendChild(c);
+        }
+
+        const meta = document.createElement('div');
+        meta.className = 'tile-meta';
+
+        const cat = document.createElement('span');
+        cat.className = 'tile-category';
+        cat.textContent = categoryLabel(it.category);
+        meta.appendChild(cat);
+
+        const date = document.createElement('span');
+        date.textContent = fmtDate(it.taken_on || it.created_at);
+        meta.appendChild(date);
+
+        body.appendChild(meta);
+
+        // Show delete only on own items (or to admin). UX gate; RLS enforces.
+        const isOwner = profile && it.uploader_id === profile.id;
+        if (isOwner || profile?.status === 'admin') {
+          const del = document.createElement('button');
+          del.className = 'btn btn-link';
+          del.style.alignSelf = 'flex-start';
+          del.style.color = 'var(--danger)';
+          del.style.padding = '0.2rem 0';
+          del.style.marginTop = '0.4rem';
+          del.textContent = 'Delete';
+          del.addEventListener('click', async () => {
+            if (!confirm('Remove this item? It can be restored by Shreyash.')) return;
+            try {
+              await softDelete({ itemId: it.id, userId: profile.id });
+              tile.remove();
+            } catch (err) {
+              alert(err.message || 'Could not delete.');
+            }
+          });
+          body.appendChild(del);
+        }
+
+        tile.appendChild(media);
+        tile.appendChild(body);
+        return tile;
+      }));
+
+      tiles.forEach(t => grid.appendChild(t));
+    }
+
+    // Upload modal handlers
+    openUpload.addEventListener('click', () => { clearUploadMsg(); modal.classList.add('is-open'); });
+    cancelUpload.addEventListener('click', () => modal.classList.remove('is-open'));
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('is-open'); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) modal.classList.remove('is-open');
+    });
+
+    formUpload.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearUploadMsg();
+      submitBtn.disabled = true;
+      try {
+        await uploadItem({
+          file:     document.getElementById('up-file').files[0],
+          title:    document.getElementById('up-title').value,
+          caption:  document.getElementById('up-caption').value,
+          category: document.getElementById('up-category').value,
+          takenOn:  document.getElementById('up-taken').value || null,
+          userId:   profile.id,
+        });
+        formUpload.reset();
+        modal.classList.remove('is-open');
+        await renderGrid();
+      } catch (err) {
+        showUploadMsg('error', err.message || 'Upload failed.');
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+
+    document.getElementById('signout').addEventListener('click', async () => {
+      await signOut();
+      location.replace('login.html');
+    });
+
+    // Bootstrap: route guard, then render
+    (async () => {
+      profile = await requireApproved();
+      if (!profile) return; // redirect in flight
+      barUser.textContent = profile.full_name || profile.email;
+      await renderGrid();
+    })();
+  </script>
+
+</body>
+</html>
